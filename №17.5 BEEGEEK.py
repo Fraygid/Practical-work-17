@@ -1,20 +1,10 @@
-def is_password_good(password):
-    if len(password) < 8:
+def is_prime(num):
+    if num < 2:
         return False
-
-    has_upper = False
-    has_lower = False
-    has_number = False
-
-    for char in password:
-        if char.isupper():
-            has_upper = True
-        if char.islower():
-            has_lower = True
-        if char.isdigit():
-            has_number = True
-
-    return has_upper and has_lower and has_number
+    for i in range(2, int(num**0.5)+1):
+        if num % i == 0:
+            return False
+    return True
 
 def is_valid_password(password):
     parts = password.split(':')
@@ -22,8 +12,20 @@ def is_valid_password(password):
     if len(parts) != 3:
         return False
 
+    a, b, c = parts
+
+    if a != a[::-1]:
+        return False
+
+    if not is_prime(int(b)):
+        return False
+
+    if int(c) % 2 != 0:
+        return False
+
+    return True
+
 print(is_valid_password('1221:101:22'))
 print(is_valid_password('565:30:50'))
 print(is_valid_password('112:7:9'))
 print(is_valid_password('1221:101:22:22'))
-asd
